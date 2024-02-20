@@ -26,8 +26,8 @@ async function admins() {
     let rolesForBatch = roles.map(item => item = { url: `/directoryRoles/${item.id}/members?select=id,displayName,appId`, method: "GET", providedId: item?.displayName })
 
 
-
-    const admins = await graphBatchingBeta(rolesForBatch, graphToken, (item) => item?.map(s => s = { value: s?.body?.value, id: s?.id }), undefined, 5, 200)
+    console.log("admins graphBatchingBeta")
+    const admins = await graphBatchingBeta(rolesForBatch, graphToken, (item) => item?.map(s => s = { value: s?.body?.value, id: s?.id }), undefined, 5, 1000)
     const groups =[]
     const list = []
     admins.map(it => {
@@ -42,8 +42,9 @@ async function admins() {
 
 
     let rolesViaGroupAssignment = groups.map(item => item = { url: `/groups/${item.id}/members/microsoft.graph.servicePrincipal?select=id,displayName,appId`, method: "GET", providedId: `${item?.role}-via-${item?.displayName}` })
-
-    const adminsViaGroups = await graphBatchingBeta(rolesViaGroupAssignment, graphToken, (item) => item?.map(s => s = { value: s?.body?.value, id: s?.id }), undefined, 5, 200)
+    
+    console.log("adminsViaGroups graphBatchingBeta")
+    const adminsViaGroups = await graphBatchingBeta(rolesViaGroupAssignment, graphToken, (item) => item?.map(s => s = { value: s?.body?.value, id: s?.id }), undefined, 5, 1000)
 
     adminsViaGroups.forEach(it => {
         it.value.forEach(spn => {

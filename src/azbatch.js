@@ -77,7 +77,7 @@ async function graphBatching(items,token, returnFilter, batchSizeF, throttleInte
         console.log('batching', batchNumber, ' of ', batchObject.length)
         // Do small await between opening 5 new batch requests
         if (batchNumber % throttleInterval == 0) {
-            console.log('implementing throttle')
+            console.log('implementing throttle in azbatch graphBatching')
             await syncWait(throttleInMs)
         }
 
@@ -171,7 +171,7 @@ async function azBatch(items,token, returnFilter, batchSizeF, throttleIntervalf,
         console.log('batching', batchNumber, ' of ', batchObject.length)
         // Do small await between opening 5 new batch requests
         if (batchNumber % throttleInterval == 0) {
-            console.log('implementing throttle')
+            console.log('implementing throttle in azbatch azBatch')
             await syncWait(throttleInMs)
         }
 

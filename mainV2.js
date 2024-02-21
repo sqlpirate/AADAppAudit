@@ -171,7 +171,7 @@ async function mainV2(token) {
     // modify so, that the ID created in MAP can be mapped back to result
     let appFedCreds = await graphBatching(appFedCredsListBatch, token?.access_token, (item) => item?.map(s => s = { content: s?.body?.value, id: s?.id }), undefined, 5, 200)
 
-    console.log(appFedCreds?.length)
+    console.log("appFedCreds: " + appFedCreds?.length)
 
     let spnFedCredsListBatch = spnFedCred?.objects
     .map(s => s = { url: `/servicePrincipals/${s?.id}/federatedIdentityCredentials?$top=999`, method: "GET", providedId: s?.id })
@@ -179,7 +179,7 @@ async function mainV2(token) {
     // modify so, that the ID created in MAP can be mapped back to result
     let spnFedCreds = await graphBatching(spnFedCredsListBatch, token?.access_token, (item) => item?.map(s => s = { content: s?.body?.value, id: s?.id }), undefined, 5, 200)
 
-    console.log(spnFedCreds?.length)
+    console.log("spnFedCreds: " + spnFedCreds?.length)
 
     applications.map(s => s.federatedCredentials = appFedCreds.find(app => app?.id == s?.id)?.content ||[])
 
@@ -193,7 +193,7 @@ async function mainV2(token) {
     // modify so, that the ID created in MAP can be mapped back to result
     let appOwners = await graphBatching(AppOwnersOwnersBatch, token?.access_token, (item) => item?.map(s => s = { content: s?.body?.value, id: s?.id }), undefined, 5, 200)
 
-    console.log(appOwners?.length)
+    console.log("appOwners: " + appOwners?.length)
 
 
     let SPNOwnersOwnersBatch = servicePrincipals.filter(spn => spn.HasOwner == 'spnOwner')
@@ -202,7 +202,7 @@ async function mainV2(token) {
     // modify so, that the ID created in MAP can be mapped back to result
     let SPNOwners = await graphBatching(SPNOwnersOwnersBatch, token?.access_token, (item) => item?.map(s => s = { content: s?.body?.value, id: s?.id }), undefined, 5, 200)
 
-    console.log(SPNOwners?.length)
+    console.log("SPNOwners: " + SPNOwners?.length)
 
 
  /*    fs.writeFileSync('SPNOwners.json', JSON.stringify(SPNOwners)) */
@@ -245,7 +245,7 @@ async function mainV2(token) {
     // modify so, that the ID created in MAP can be mapped back to result
     let spnAppRoleAssigned = await graphBatching(spnAppRoleAssignedBatch, token?.access_token, (item) => item?.map(s => s = s?.body?.value).flat(), undefined, 5, 200)
 
-    console.log(spnAppRoleAssigned?.length)
+    console.log("spnAppRoleAssigned: " + spnAppRoleAssigned?.length)
 
     if (argv?.azRbac) {
         console.log('getting AzRoles')

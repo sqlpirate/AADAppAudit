@@ -33,12 +33,14 @@ async function run() {
     var tEnc = decode(token)
     fs.writeFileSync('kql/tid.txt', tEnc.tid)
 
+    //switched order
+    await admins()
+
     await mainV2({
         access_token: token,
         resource: "https://graph.microsoft.com"
     })
 
-    await admins()
 
     try {
         await wexc('node nodeparse2.js')

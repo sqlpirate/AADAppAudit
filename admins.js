@@ -5,6 +5,7 @@ const getToken = require("./src/getToken")
 module.exports = { admins }
 
 async function admins() {
+    console.log("admins()")
 
     var graphToken = await getToken()
 
@@ -19,6 +20,7 @@ async function admins() {
     }).catch((error) => {
         console.log(error)
     })
+    console.log("admins() rolesForBatch")
 
 
 
@@ -28,6 +30,7 @@ async function admins() {
 
     console.log("admins graphBatchingBeta")
     const admins = await graphBatchingBeta(rolesForBatch, graphToken, (item) => item?.map(s => s = { value: s?.body?.value, id: s?.id }), undefined, 5, 1000)
+    console.log("admins graphBatchingBeta end")
     const groups =[]
     const list = []
     admins.map(it => {
